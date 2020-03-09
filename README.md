@@ -1,10 +1,16 @@
 # Compiladores
+
 ## Descrição do trabalho
+
 ### Compilador (Trabalho)
+
 #### Regras
+
 #### Linguagem
+
 #### Etapas
-* [] Lexico 
-* [] Sintatico
-* [] Semantico
-* [] Gerar Codigo
+
+* [ ] Lexico
+* [ ] Sintatico
+* [ ] Semantico
+* [ ] Gerar Código
