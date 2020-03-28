@@ -47,7 +47,7 @@ comment			[^*/]
 		
 .               		{ return ERROR; }
 
-"/*"{comment}"*/"	{ return COMMENT; }
+"/*"{comment}"*/"		{ return COMMENT; }
 
 %%
 
