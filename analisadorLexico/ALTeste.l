@@ -10,10 +10,12 @@ letter          [a-zA-Z_]
 whitespace      [ \t\r\n]+
 letterOrNumber  [a-zA-Z_0-9]
 identifier      {letter}{letterOrNumber}*
-comment			[^*/]
+comment		[^*/]
 
 
 %%
+
+"/*"{comment}*"*/"		{ printf("COMMENT "); }
 
 "if"            		{ printf("IF "); }
 "else"          		{ printf("ELSE "); }
@@ -46,8 +48,6 @@ comment			[^*/]
 {whitespace}    		{ /* skip whitespace */ }
 		
 .               		{ printf("ERROR "); }
-
-"/*"{comment}"*/"		{ printf("COMMENT "); }
 
 %%
 

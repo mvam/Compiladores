@@ -15,6 +15,8 @@ comment			[^*/]
 
 %%
 
+"/*"{comment}*"*/"		{ return COMMENT; }
+
 "if"            		{ return IF; }
 "else"          		{ return ELSE; }
 "while"         		{ return WHILE; }
@@ -46,8 +48,6 @@ comment			[^*/]
 {whitespace}    		{ /* skip whitespace */ }
 		
 .               		{ return ERROR; }
-
-"/*"{comment}"*/"		{ return COMMENT; }
 
 %%
 
