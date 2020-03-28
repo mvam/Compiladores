@@ -1,7 +1,9 @@
 %{
-    int comentario = 0;
-    char tokenString[MAXTOKENLEN + 1];
-    static int yylex(void);
+#define MAXTOKENLEN 100
+
+int comentario = 0;
+char tokenString[MAXTOKENLEN + 1];
+static int yylex(void);
 %}
 
 digit           [0-9]
@@ -15,46 +17,51 @@ comment			[^*/]
 
 %%
 
-"/*"{comment}*"*/"		{ return COMMENT; }
-
-"if"            		{ return IF; }
-"else"          		{ return ELSE; }
-"while"         		{ return WHILE; }
-"return"        		{ return RETURN; }
-"int"           		{ return INT; }
-"void"          		{ return VOID; }
-"+"             		{ return MAIS; }
-"-"             		{ return MENOS; }
-"*"             		{ return VEZES; }
-"/"             		{ return DIVISAO; }
-"="             		{ return ATRIBUICAO; }
-"<"             		{ return MENOR; }
-"<="            		{ return MENORIGUAL; }
-">"             		{ return MAIOR; }
-">="            		{ return MAIORIGUAL; }
-"=="            		{ return IGUAL; }
-"!="            		{ return DIFERENTE; }
-";"             		{ return SEMI; }
-","             		{ return COMMA; }
-"("             		{ return LPAREN; }
-")"             		{ return RPAREN; }
-"["             		{ return LBRACKET; }
-"]"             		{ return RBRACKET; }
-"{"             		{ return LKEY; }
-"}"             		{ return RKEY; }
+"if"            		{ fputs("IF\n", yyout); }
+"else"          		{ fputs("ELSE\n", yyout); }
+"while"         		{ fputs("WHILE\n", yyout); }
+"return"        		{ fputs("RETURN\n", yyout); }
+"int"           		{ fputs("INT\n", yyout); }
+"void"          		{ fputs("VOID\n", yyout); }
+"+"             		{ fputs("MAIS\n", yyout); }
+"-"             		{ fputs("MENOS\n", yyout); }
+"*"             		{ fputs("VEZES\n", yyout); }
+"/"             		{ fputs("DIVISAO\n", yyout); }
+"="             		{ fputs("ATRIBUICAO\n", yyout); }
+"<"             		{ fputs("MENOR\n", yyout); }
+"<="            		{ fputs("MENORIGUAL\n", yyout); }
+">"             		{ fputs("MAIOR\n", yyout); }
+">="            		{ fputs("MAIORIGUAL\n", yyout); }
+"=="            		{ fputs("IGUAL\n", yyout); }
+"!="            		{ fputs("DIFERENTE\n", yyout); }
+";"             		{ fputs("SEMI\n", yyout); }
+","             		{ fputs("COMMA\n", yyout); }
+"("             		{ fputs("LPAREN\n", yyout); }
+")"             		{ fputs("RPAREN\n", yyout); }
+"["             		{ fputs("LBRACKET\n", yyout); }
+"]"             		{ fputs("RBRACKET\n", yyout); }
+"{"             		{ fputs("LKEY\n", yyout); }
+"}"             		{ fputs("RKEY\n", yyout); }
 		
-{number}        		{ return NUM; }
-{identifier}    		{ return ID; }
+{number}        		{ fputs("NUM\n", yyout); }
+{identifier}    		{ fputs("ID\n", yyout); }
 {whitespace}    		{ /* skip whitespace */ }
 		
-.               		{ return ERROR; }
+.               		{ fputs("ERROR\n", yyout); }
+
+"/*"{comment}"*/"	{ printf("return COMMENT"); }
 
 %%
 
 int yywrap();
 
-int main(void){
+int main(int argc, char const *argv[]){
+	extern FILE *yyin, *yyout;
+	yyin = fopen(argv[1], "r");
+	yyout = fopen(argv[2], "w");
 	yylex();
+	fclose(yyin);
+	fclose(yyout);
 	return 0;
 
 }
